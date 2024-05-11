@@ -1,0 +1,148 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.table-wrapper {
+  flex-basis: calc(50% - 10px); /* Restamos 10px para el margen entre columnas */
+  margin-bottom: 20px;
+}
+
+/* Estilos adicionales para dar un aspecto visual a las tablas */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Mover la foto al lado derecho */
+.table-wrapper.right-photo table {
+  order: 1;
+}
+
+.table-wrapper.right-photo .info-container {
+  text-align: right;
+}
+
+.table-wrapper.right-photo img {
+  max-width: 100%;
+}
+ /* Estilos para la columna de la foto */
+ .photo-column {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.photo-column img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+ /* Estilos para el contenedor del botón "Add" */
+ .add-button-container {
+  text-align: right;
+  margin-bottom: 20px;
+  
+}
+
+.add-button button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color:  #3383dd;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 0px;
+}
+
+.add-button button:hover {
+  background-color:  #3383dd;
+}
+
+/* Estilos para el botón de eliminar */
+.delete-button {
+  text-align: center;
+}
+
+.delete-button button {
+  padding: 5px 10px;
+  font-size: 12px;
+  background-color: #3383dd;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-button button:hover {
+  background-color: #3383dd;
+}
+ /* Estilos para el botón de añadir */
+ .add-button {
+  margin-bottom: 20px;
+}
+
+/* Estilos para el botón de eliminar */
+.delete-link {
+  text-decoration: underline;
+  color:  #3383dd;
+  cursor: pointer;
+}
+
+.delete-link:hover {
+  text-decoration: underline;
+  color: #3383dd;
+}
+
+  .info-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    /* La altura se ajustará al contenido */
+  }
+
+  .info-details {
+    margin-left: 10px;
+  }
+  
+  /* Estilos para el botón de guardar */
+  #saveButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+  }
+
+  #saveButton:hover {
+    background-color: #0056b3;
+  }
+  .welcome-text {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    background: linear-gradient(to right, green, fuchsia);
+    -webkit-background-clip: text;
+    color: transparent;
+}

@@ -1,0 +1,36 @@
+.error-box {
+  height: 100vh; /* 100% de la altura del viewport */
+  display: flex; /* Usa flexbox para centrar contenido */
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  background: url(../../assets/images/background/error-bg.jpg) no-repeat center center #fff;
+}
+
+.error-box .footer {
+  width: 100%;
+}
+
+.error-body {
+  padding-top: 5%;
+  text-align: center; /* Centra el texto */
+}
+
+.error-body h1 {
+  font-size: 10vw; /* Tamaño de fuente relativo al viewport width */
+  font-weight: 900;
+  text-shadow: 4px 4px 0 #ffffff, 6px 6px 0 #263238;
+  line-height: 1; /* Restaura la altura de línea predeterminada */
+}
+
+.error-image {
+  max-width: 80%; /* Máximo ancho del contenedor */
+  height: auto; /* Altura automática */
+  display: block; /* Quita el espacio adicional debajo de la imagen */
+  margin: 0 auto; /* Centra horizontalmente */
+}
+
+/* Haz que la imagen sea responsive */
+.error-image {
+  max-width: 100%;
+  height: auto;
+}

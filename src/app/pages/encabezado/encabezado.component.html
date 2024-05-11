@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Título del Formulario</title>
+ 
+</head>
+<body>
+  <header class="header">
+    <div class="logo-container">
+      <a href="inicio">
+        <img src="\assets\logo.png" alt="Logo" class="logo">
+      </a>
+    </div>
+    <div class="title-container">
+      <h1 class="title">Adicionar Productos</h1>
+    </div>
+  </header>
+  
+  <div class="container">
+    <nav class="nav border rounded p-3 mb-3">
+      <a id="home-link" class="nav-link" href="inicio" onclick="setActiveLink('home')">Home</a> <!-- Enlace a la página de inicio (vacío para ruta predeterminada) -->
+      <a id="crear-producto-link" class="nav-link" href="crear-producto" onclick="setActiveLink('crear-producto')">Adicionar Producto</a>
+      <a id="listado-producto-link" class="nav-link" href="listado-productos" onclick="setActiveLink('listado-productos')">Listar Productos</a>
+     </nav>
+     
+  </div>
+    
+  <!-- Resto del contenido de tu formulario aquí --> 
+  <script>
+    function setActiveLink(link) {
+      const links = document.querySelectorAll('.nav-link.active');
+      links.forEach((el) => {
+        if (el.getAttribute('href') === link) {
+          el.classList.add('active');
+        } else {
+          el.classList.remove('active');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

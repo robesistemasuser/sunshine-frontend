@@ -1,0 +1,56 @@
+.header {
+  padding: 20px; /* Espacio interno */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra más oscura */
+  background-color: #fff; /* Color de fondo */
+  display: flex;
+  align-items: center; /* Centrado vertical */
+}
+
+.logo-container {
+  margin-right: 20px; /* Espacio entre el logo y el título */
+}
+
+.logo {
+  height: 50px; /* Altura del logo */
+}
+
+.title-container {
+  flex-grow: 1; /* Aumenta el espacio entre el título y el logo */
+}
+
+.title {
+  margin: 0; /* Eliminar el margen predeterminado del título */
+}
+
+nav {
+  border: 1px solid #cec7c7; /* Bordes con color gris */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px; /* Espacio interno */
+  margin-bottom: 20px; /* Margen inferior */
+}
+
+nav a {
+  text-decoration: none; /* Sin subrayado en los enlaces */
+  color: #0c0b0b6c; /* Color del texto */
+  margin-right: 20px; /* Espacio entre elementos del menú */
+  font-weight: bold;
+}
+
+nav a:last-child {
+  margin-right: 0; /* Eliminar el espacio derecho del último elemento */
+}
+
+nav a:hover {
+  color: #d831b4; /* Cambiar color del texto al pasar el mouse */
+}
+
+.nav-link {
+  font-weight: normal; /* reset para evitar que todos los enlaces estén en negrita por defecto */
+}
+
+.nav-link:active {
+  background-color: #228ed6; /* Fondo rojo para el enlace activo */
+  font-weight: bold; /* Texto en negrita para el enlace activo */
+  color: #fff; /* Color de texto para el enlace activo */
+}
