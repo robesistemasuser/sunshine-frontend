@@ -1,6 +1,0 @@
-{
-    "shared_env": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NjMxYTI0OWI1YmUzMmI1NTZhNGZkNjkiLCJpYXQiOjE3MTQ5MjY5NjMsImV4cCI6MTcxNDk3MDE2M30.S7JTO_JD3iR1K8qUV9zEPQeCnN9hcLEQRcq3npKdObk",
-        "url": "http://localhost:3005/api"
-    }
-}

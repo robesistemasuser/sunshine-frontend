@@ -5,15 +5,13 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 
-
+import { environment } from '../environments/environment';
 
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
-
- 
-import { environment } from '../environments/environment.prod';
 import { Usuario } from '../models/usuario.model';
+
 
 const base_url = environment.base_url;
 
@@ -25,37 +23,46 @@ declare const gapi: any;
 export class UsuarioService {
 
   public auth2: any;
-  public usuario: Usuario | undefined;
+  public usuario: Usuario = new Usuario('', '', '', '', false, 'USER_ROLE', '');
 
   constructor( private http: HttpClient, 
                 private router: Router,
                 private ngZone: NgZone ) {
-
-    this.googleInit();
+    
+    this.googleInit(); 
   }
 
   get token(): string {
+    
     return localStorage.getItem('token') || '';
   }
 
-  get uid():string {
-    return this.usuario?.uid || '';
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
+  
+    return this.usuario?.role ?? 'USER_ROLE';
   }
+  
+
+  get uid(): string {
+    return this.usuario?.uid ?? '';
+  }
+  
 
   get headers() {
     return {
       headers: {
-        'x-token': this.token
+        'x-token': this.token || ''
       }
-    }
+    };
   }
+  
 
   googleInit() {
 
     return new Promise<void>( resolve => {
       gapi.load('auth2', () => {
         this.auth2 = gapi.auth2.init({
-          client_id: '1045072534136-oqkjcjvo449uls0bttgvl3aejelh22f5.apps.googleusercontent.com',
+          client_id: 'xxxxxxxxxxxx.apps.googleusercontent.com',
           cookiepolicy: 'single_host_origin',
         });
 
@@ -65,8 +72,16 @@ export class UsuarioService {
 
   }
 
+  guardarLocalStorage( token: string, menu: any ) {
+
+    localStorage.setItem('token', token );
+    localStorage.setItem('menu', JSON.stringify(menu) );
+
+  }
+
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
 
     this.auth2.signOut().then(() => {
 
@@ -85,9 +100,11 @@ export class UsuarioService {
       }
     }).pipe(
       map( (resp: any) => {
-        const { email, google, nombre, role, img = '', uid } = resp.usuario;
-        this.usuario = new Usuario( nombre, email, '', img, google, role, uid );
-        localStorage.setItem('token', resp.token );
+        const { email, google, nombre,password, role, img = '', uid } = resp.usuario;
+        this.usuario = new Usuario( nombre, email, password, img, google, role, uid );
+        console.log(resp.usuario, "Rspuesta Usuario");
+        this.guardarLocalStorage( resp.token, resp.menu );
+        console.log(resp.token, resp.menu, "resp.token, resp.menu");
         return true;
       }),
       catchError( error => of(false) )
@@ -101,7 +118,7 @@ export class UsuarioService {
     return this.http.post(`${ base_url }/usuarios`, formData )
               .pipe(
                 tap( (resp: any) => {
-                  localStorage.setItem('token', resp.token )
+                  this.guardarLocalStorage( resp.token, resp.menu );
                 })
               )
 
@@ -111,21 +128,23 @@ export class UsuarioService {
 
     data = {
       ...data,
-      role: this.usuario?.role
+      role: this.usuario.role
     }
 
     return this.http.put(`${ base_url }/usuarios/${ this.uid }`, data, this.headers );
 
   }
 
-  login( formData: LoginForm ) {
+  login( formData: LoginForm ) {console.log(formData, "formDataaaa");
     
-    return this.http.post(`${ base_url }/login`, formData )
-                .pipe(
-                  tap( (resp: any) => {
-                    localStorage.setItem('token', resp.token )
-                  })
-                );
+  const respuesta = this.http.post(`${ base_url }/login`, formData )
+  .pipe(
+    tap( (resp: any) => {  
+      this.guardarLocalStorage( resp.token, resp.menu );
+    })
+  );
+  
+  return respuesta;
 
   }
 
@@ -134,7 +153,7 @@ export class UsuarioService {
     return this.http.post(`${ base_url }/login/google`, { token } )
                 .pipe(
                   tap( (resp: any) => {
-                    localStorage.setItem('token', resp.token )
+                    this.guardarLocalStorage( resp.token, resp.menu );
                   })
                 );
 
@@ -148,7 +167,7 @@ export class UsuarioService {
             .pipe(
               map( resp => {
                 const usuarios = resp.usuarios.map( 
-                  user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid )  
+                  user => new Usuario(user.nombre, user.email, user.password, user.img, user.google, user.role, user.uid )  
                 );
                 return {
                   total: resp.total,

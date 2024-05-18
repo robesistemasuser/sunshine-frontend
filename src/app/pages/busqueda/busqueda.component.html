@@ -1,0 +1,82 @@
+<div class="row animated fadeIn fast">
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Usuarios</h3>
+
+                <div class="alert alert-info animated fadeIn fast"
+                    *ngIf="usuarios.length === 0">
+                  <p class="mb-0">
+                      No hay usuario con ese término
+                  </p>
+                </div>
+
+                <div class="table-responsive"
+                    *ngIf="usuarios.length > 0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let usuario of usuarios"
+                                class="animated fadeIn fast">
+                                <td>
+                                    <img [ ]="usuario.img | imagen:'usuarios'" 
+                                         class="w75"/>
+                                </td>
+                                <td>{{ usuario.nombre }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Productos</h3>
+
+                <div class="alert alert-info animated fadeIn fast"
+                    *ngIf="productos.length === 0">
+                  <p class="mb-0">
+                      No hay productos con ese término
+                  </p>
+                </div>
+
+                <div class="table-responsive"
+                    *ngIf="productos.length > 0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let producto of productos"
+                                class="animated fadeIn fast">
+                                <td>
+                                    <img [src]="producto.img! | imagen:'productos'" 
+                                         class="w75"/>
+                                </td>
+                                <td>{{ producto.nombre }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+   
+</div> 
