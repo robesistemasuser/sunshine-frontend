@@ -3,38 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <title>Tabla con filtros y ordenación</title>
+   
 </head>
 <body>
+  <div class="table-container">
+    
+    <table id="tablaProductos">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Especie</th>
+          <th>Variedad</th>
+          <th>Grado</th>
+          <th>Foto</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpoTabla">
+        <!-- Filas de la tabla se generarán aquí -->
+        <tr *ngFor="let producto of productos">
+          <td>{{ producto.id_producto }}</td>
+          <td>
+            {{ producto.nombre }}
+        </td>
+        <td>{{ producto.especie }}</td>
+        <td>{{ producto.variedad }}</td>
+        <td>{{ producto.grado }}</td>
+        <td><img src="{{ producto.img }}" alt="{{ producto.img }}"></td>
   
-<div class="table-container" >
-  <p class="welcome-text" >Listado de productos</p>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Especie</th>
-        <th>Variedad</th>
-        <th>Grado</th>
-        <th>Foto</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let producto of productos">
-        <td>{{ producto._id }}</td>
-        <td>
-          {{ producto.nombre }}
-      </td>
-      <td>{{ producto.especie }}</td>
-      <td>{{ producto.variedad }}</td>
-      <td>{{ producto.grado }}</td>
-      <td><img src="{{ producto.img }}" alt="{{ producto.img }}"></td>
+      </tbody>
+    </table>
+  </div>
 
-      </tr>
-    </tbody>
-  </table>  
-</div>
-
+  
 </body>
 </html>

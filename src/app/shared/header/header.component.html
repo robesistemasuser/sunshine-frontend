@@ -8,15 +8,19 @@
         <!-- ============================================================== -->
         <div class="navbar-header">
             <a class="navbar-brand" href="index.html">
-                 <b>
-                    <img src="./assets/images/logo-icon.png" alt=" " class="dark-logo" />
-                    <img src="./assets/images/logo-light-icon.png" alt=" " class="light-logo" />
+                <!-- Logo icon --><b>
+                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                    <!-- Dark Logo icon -->
+                    <img src="./assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                    <!-- Light Logo icon -->
+                    <img src="./assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
                 </b>
-                   <span>
-                   <img src="./assets/images/logo-text.png" alt=" " class="dark-logo" />
-                    <img src="./assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
-                   </span> 
-            </a>
+                <!--End Logo icon -->
+                <!-- Logo text --><span>
+                    <!-- dark Logo text -->
+                    <img src="./assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                    <!-- Light Logo text -->    
+                    <img src="./assets/images/logo-light-text.png" class="light-logo" alt="homepage" /></span> </a>
         </div>
         <!-- ============================================================== -->
         <!-- End Logo -->
@@ -26,7 +30,6 @@
             <!-- toggle and nav items -->
             <!-- ============================================================== -->
             <ul class="navbar-nav mr-auto">
-                
                 <!-- This is  -->
                 <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                 <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
@@ -40,10 +43,17 @@
                 <!-- Search -->
                 <!-- ============================================================== -->
                 <li class="nav-item hidden-xs-down search-box"> <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
-                    <form class="app-search">
-                        <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
+                    <form class="app-search"
+                            (submit)="buscar( txtTermino.value )">
+                        <input type="text" 
+                                class="form-control" 
+                                placeholder="Buscar médico, hospital o usuario"
+                                #txtTermino> 
+                        <a class="srh-btn"><i class="ti-close"></i></a> 
+                    </form>
                 </li>
-               
+
+
                 <!-- ============================================================== -->
                 <!-- Language -->
                 <!-- ============================================================== -->
@@ -56,17 +66,17 @@
                 <!-- ============================================================== -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img [src]="usuario?.imagenUrl" alt="user" class="profile-pic" />
+                        <img [src]="usuario.imageUrl" alt="user" class="profile-pic" />
                     </a>
                     <div class="dropdown-menu dropdown-menu-right animated fadeIn fast">
                         <ul class="dropdown-user">
                             <li>
                                 <div class="dw-user-box">
-                                    <div class="u-img"><img [src]="usuario?.imagenUrl" alt="user"></div>
+                                    <div class="u-img"><img [src]="usuario.imageUrl" alt="user"></div>
                                     <div class="u-text">
-                                        <h4>{{ usuario?.nombre }}</h4>
+                                        <h4>{{ usuario.nombre }}</h4>
                                         <p class="text-muted">
-                                            {{ usuario?.email | slice:0:20 }}{{ (usuario?.email?.length! > 20) ? '...': '' }}
+                                            {{ usuario.email | slice:0:20 }}{{ (usuario.email.length > 20) ? '...': '' }}
                                         </p>
                                         <a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
                                     </div>
@@ -74,8 +84,6 @@
                             </li>
                             <li role="separator" class="divider"></li>
                             <li><a routerLink="./perfil"><i class="ti-user"></i> My Profile</a></li>
-                            <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
-                            <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a routerLink="account-settings"><i class="ti-settings"></i> Account Setting</a></li>
                             <li role="separator" class="divider"></li>

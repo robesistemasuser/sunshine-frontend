@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
-import { Usuario } from '../models/usuario.model';
-import { UsuarioService } from '../services/usuario.service';
-import { FileUploadService } from '../services/file-upload.service';
 
- 
+import Swal from 'sweetalert2';
+
+import { UsuarioService } from '../../services/usuario.service';
+import { FileUploadService } from '../../services/file-upload.service';
+
+import { Usuario } from '../../models/usuario.model';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-perfil',
@@ -13,10 +14,12 @@ import { FileUploadService } from '../services/file-upload.service';
   styles: [
   ]
 })
+
+
 export class PerfilComponent implements OnInit {
 
-  public perfilForm: FormGroup | undefined;
-  public usuario?: Usuario;
+  public perfilForm: any;
+  public usuario: Usuario;
   public imagenSubir!: File;
   public imgTemp: any = null;
 
@@ -30,18 +33,18 @@ export class PerfilComponent implements OnInit {
   ngOnInit(): void {
 
     this.perfilForm = this.fb.group({
-      nombre: [ this.usuario?.nombre , Validators.required ],
-      email: [ this.usuario?.email, [ Validators.required, Validators.email ] ],
+      nombre: [ this.usuario.nombre , Validators.required ],
+      email: [ this.usuario.email, [ Validators.required, Validators.email ] ],
     });
 
   }
 
   actualizarPerfil() {
-    this.usuarioService.actualizarPerfil( this.perfilForm?.value )
+    this.usuarioService.actualizarPerfil( this.perfilForm.value )
         .subscribe( () => {
-          const { nombre, email } = this.perfilForm?.value;
-          this.usuario!.nombre = nombre;
-          this.usuario!.email = email;
+          const { nombre, email } = this.perfilForm.value;
+          this.usuario.nombre = nombre;
+          this.usuario.email = email;
 
           Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
         }, (err) => {
@@ -63,15 +66,15 @@ export class PerfilComponent implements OnInit {
     reader.onloadend = () => {
       this.imgTemp = reader.result;
     }
-  return this.imgTemp
+  return;
   }
 
   subirImagen() {
 
     this.fileUploadService
-      .actualizarFoto( this.imagenSubir, 'usuarios', "this.usuario.uid" )
+      .actualizarFoto( this.imagenSubir, 'usuarios', this.usuario.uid! )
       .then( img => {
-        this.usuario!.img = img;
+        this.usuario.img = img;
         Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
       }).catch( err => {
         console.log(err);

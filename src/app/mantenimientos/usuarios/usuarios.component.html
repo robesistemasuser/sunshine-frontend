@@ -50,7 +50,7 @@
                         <tbody>
                             <tr *ngFor="let usuario of usuarios">
                                 <td class="text-center">
-                                    <img [src]="usuario.imagenUrl" 
+                                    <img [src]="usuario.imageUrl" 
                                             alt="Avatar de usuario"
                                             class="avatar cursor"
                                             (click)="abrirModal(usuario)">
@@ -60,7 +60,7 @@
 
                                 <td>
                                     <select class="form-control"
-                                            
+                                            [(ngModel)]="usuario.role"
                                             (change)="cambiarRole( usuario )">
                                         <option value="ADMIN_ROLE">Admin</option>
                                         <option value="USER_ROLE">User</option>

@@ -8,6 +8,7 @@ import { Usuario } from '../../models/usuario.model';
 import { UsuarioService } from '../../services/usuario.service';
 import { BusquedasService } from '../../services/busquedas.service';
 import { ModalImagenService } from '../../services/modal-imagen.service';
+import { Producto } from '../../models/producto.model';
 
 @Component({
   selector: 'app-usuarios',
@@ -21,7 +22,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public usuarios: Usuario[] = [];
   public usuariosTemp: Usuario[] = [];
 
-  public imgSubs?: Subscription;
+  public imgSubs: Subscription | undefined;
   public desde: number = 0;
   public cargando: boolean = true;
 
@@ -29,7 +30,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
                private busquedasService: BusquedasService,
                private modalImagenService: ModalImagenService ) { }
   ngOnDestroy(): void {
-    this.imgSubs?.unsubscribe();
+    this.imgSubs!.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -63,20 +64,29 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.cargarUsuarios();
   }
 
-  buscar( termino: string ) {
-
-    if ( termino.length === 0 ) {
-      return this.usuarios = this.usuariosTemp;
+  buscar(termino: string) {
+    if (termino.length === 0) {
+      this.usuarios = this.usuariosTemp;
+      return; // Evitar que se realice la búsqueda si el término está vacío
     }
-
-    this.busquedasService.buscar( 'usuarios', termino )
-      /*   .subscribe( (resp: Usuario[]) => {
-
-          this.usuarios = resp;
-
-        }); */
-        return this.usuarios = this.usuariosTemp;
+  
+    this.busquedasService.buscar('usuarios', termino)
+      .subscribe(
+        (resp: Usuario[] | Producto[]) => { // Ajuste aquí
+          if (Array.isArray(resp)) {
+            this.usuarios = resp as Usuario[];
+          } else {
+            // Manejar los productos si es necesario
+          }
+        },
+        (error) => {
+          console.error('Error durante la búsqueda:', error);
+        }
+      );
   }
+  
+  
+  
 
   eliminarUsuario( usuario: Usuario ) {
 
@@ -107,7 +117,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
       }
     })
-    return Swal.fire('Error', 'Otro');
+  return Swal.fire('Error', 'No puede borrarse a si mismo', 'error');
   }
 
   cambiarRole( usuario:Usuario ) {
@@ -121,7 +131,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   abrirModal( usuario: Usuario ) {
   
-   /*  this.modalImagenService.abrirModal('usuarios', usuario.uid, usuario.img ); */
+    this.modalImagenService.abrirModal('usuarios', usuario.uid!, usuario.img );
   }
 
 }
